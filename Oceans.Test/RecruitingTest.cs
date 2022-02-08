@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 using FluentAssertions;
+using Oceans.Exercise;
 
 namespace Oceans.Test
 {
@@ -67,6 +68,11 @@ namespace Oceans.Test
             Assert.True(user.ExpiredSubscriptions == 2, $"Expected expired subscriptions: 2 - Your code returns: {user.ExpiredSubscriptions}");
         }
 
+
+
+
+
+
         [Fact]
         public void SubscriptionsExpiredLastYearPreviousMonth()
         {
@@ -84,14 +90,33 @@ namespace Oceans.Test
                 PaymentType = PaymentType.AmericanExpress
             };
 
-            Assert.True(false, "Finish this test and remove this line");
+            Assert.True(user.ExpiredSubscriptions > 0, "Finish this test and remove this line");
         }
 
         [Fact]
         public void SubscriptionsExpiringNextYearNextMonth()
         {
-            Assert.True(false, "Implement this test and remove this line");
+            var date = DateTime.Now.AddYears(-1).AddMonths(-1).AddDays(-1);
+
+            var subscriptions = new List<Subscription>
+            {
+                new Subscription(date.Month, date.Year, date.Day) { Name = "Netflix" },
+                new Subscription(date.Month, date.Year, date.Day ) { Name = "Amazon Prime" }
+            };
+
+            var user = new User(subscriptions)
+            {
+                Name = "Mike Mora",
+                PaymentType = PaymentType.AmericanExpress
+            };
+
+            int ExpiredSubscriptions = user.ExpiredSubscriptions;
+
+            Assert.True(ExpiredSubscriptions > 1, "Finish this test and remove this line");
         }
+
+
+
 
         [Fact]
         public void SubscriptionsExpiredLastMonth_UsingFluentAssertions()

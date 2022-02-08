@@ -18,12 +18,19 @@
         internal int ExpirationYear { get; }
 
         /// <summary>
+        /// The day the subscription expires
+        /// </summary>
+        internal int ExpirationDay { get; }
+
+        /// <summary>
         /// Creates a new instance of the <see cref="Subscription" /> class.
         /// </summary>
-        /// <param name="expirationMonth">The month the subscription expires</param>
-        /// <param name="expirationYear">The year the subscription expires</param>
-        public Subscription(int expirationMonth, int expirationYear)
+        /// <param name="expirationMonth"></param>
+        /// <param name="expirationDay"></param>
+        /// <param name="expirationYear"></param>
+        public Subscription(int expirationMonth, int expirationYear, int expirationDay = 1)
         {
+            this.ExpirationDay = expirationDay;
             this.ExpirationMonth = expirationMonth;
             this.ExpirationYear = expirationYear;
         }

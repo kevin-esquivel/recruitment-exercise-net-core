@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Oceans.Exercise
@@ -37,16 +38,34 @@ namespace Oceans.Exercise
             get
             {
                 //Use LINQ to get the right number
-                return Subscriptions.Select(_ => 0).FirstOrDefault();
+                //return Subscriptions.Select(_ => 0).FirstOrDefault();
+
+                List<Subscription> expiredSubscriptions = new List<Subscription>();
+                foreach (var subscription in Subscriptions)
+                {
+                    DateTime subscriptionDate = new DateTime(subscription.ExpirationDay, subscription.ExpirationMonth, subscription.ExpirationYear);
+
+                    if (DateTime.Now > subscriptionDate)
+                    {
+                        expiredSubscriptions.Add(subscription);
+                    }
+                }
+
+                return expiredSubscriptions.Count;
             }
         }
 
         /// <summary>
         /// Rewrite this method to return a tuple of Name, PaymentType and the local variable 'codeExperts'
         /// </summary>
-        public void UserInformation()
+        public UserInfo UserInformation()
         {
-            bool codeExperts = true;
+            UserInfo info = new UserInfo();
+            info.Name = Name;
+            info.PaymentType = PaymentType;
+            info.CodeExperts = true;
+
+            return info;
         }
 
         /// <summary>
